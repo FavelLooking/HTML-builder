@@ -58,6 +58,13 @@ async function htmlFillingFunc() {
   templateText = await templateText.replace('{{header}}', header.trim());
   templateText = await templateText.replace('{{articles}}', articles.trim());
   templateText = await templateText.replace('{{footer}}', footer.trim());
+  if (templateText.includes('{{about}}')) {
+    const about = await fsPromises.readFile(
+      path.join(__dirname, 'components', 'about.html'),
+      'utf-8',
+    );
+    templateText = await templateText.replace('{{about}}', about.trim());
+  }
   // console.log(templateText);
   await fsPromises.appendFile(
     path.join(__dirname, 'project-dist', 'index.html'),
