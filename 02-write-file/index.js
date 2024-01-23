@@ -11,4 +11,8 @@ process.stdin.on('data', (data) => {
   fs.appendFile(pathName, data.toString(), (err) => {
     if (err) throw err;
   });
+  process.on('SIGINT', () => {
+    console.log('bye byee');
+    process.exit(0);
+  });
 });
